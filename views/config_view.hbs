@@ -1,0 +1,252 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Nice Title</title>
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <style>
+        * {
+            font-size: 13px;
+        }
+
+        .filter-table .quick {
+            margin-left: 0.5em;
+            font-size: 0.8em;
+            text-decoration: none;
+        }
+
+        .fitler-table .quick:hover {
+            text-decoration: underline;
+        }
+
+        td.alt {
+            background-color: #ffc;
+            background-color: rgba(255, 255, 0, 0.2);
+        }
+
+        tr:hover { background: yellow; }
+    </style>
+</head>
+
+<body>
+    <div style="margin-left: 50px; margin-right: 50px; margin-top: 10px;">
+        <!-- <h2>Product List</h2> -->
+        <div style="position: fixed; top:1; width:94%; overflow: hidden;  background-color: #ffff;">
+        <button class="btn btn-success" data-toggle="modal" data-target="#myModalAdd">Add New</button>
+        </div>
+        </br><label>&nbsp;</label>
+        <table id="mytable" border=1 cellpadding=0 cellspacing=0 width='100%' class='sortable'>
+            <thead>
+                <tr bgcolor="#4183f4" style="color: white" align=center>
+                    <th>ID</th>
+                    <th>Application</th>
+                    <th>Component</th>
+                    <th>Node</th>
+                    <th>Environment</th>
+                    <th>URL</th>
+                    <th>TextToFind</th>
+                    <th>Credentials</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each results}}
+                <tr>
+                    <td>{{ id }}</td>
+                    <td>{{ application }}</td>
+                    <td>{{ component }}</td>
+                    <td>{{ node }}</td>
+                    <td>{{ environment }}</td>
+                    <td>{{ url }}</td>
+                    <td>{{ texttofind }}</td>
+                    <td>{{ credentials }}</td>
+                    <td style="text-align:center">
+                        <!-- <a href="javascript:void(0);" class="btn btn-sm btn-info edit" data-id="{{ id }}" -->
+                        <a href="javascript:void(0);" class="edit" data-id="{{ id }}"
+                            data-application="{{ application }}" data-component="{{ component }}" data-node="{{ node }}"
+                            data-environment="{{ environment }}" data-url="{{ url }}" data-texttofind="{{ texttofind }}"
+                            data-credentials="{{ credentials }}">Edit</a>
+                        <a href="javascript:void(0);" class="delete" data-id="{{ id }}">Delete</a>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal Add Product-->
+    <form action="/save" method="post">
+        <div class="modal" id="myModalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add New Config</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div><label>Application</label></div>
+                        <div class="form-group">
+                            <input type="text" name="application" class="form-control" placeholder="Application"
+                                required>
+                        </div>
+                        <div><label>Component</label></div>
+                        <div class="form-group">
+                            <input type="text" name="component" class="form-control" placeholder="Component" required>
+                        </div>
+                        <div><label>Node</label></div>
+                        <div class="form-group">
+                            <input type="text" name="node" class="form-control" placeholder="Node" required>
+                        </div>
+                        <div><label>Environment</label></div>
+                        <div class="form-group">
+                            <input type="text" name="environment" class="form-control" placeholder="Environment"
+                                required>
+                        </div>
+                        <div><label>URL</label></div>
+                        <div class="form-group">
+                            <input type="text" name="url" class="form-control" placeholder="URL" required>
+                        </div>
+                        <div><label>TextToFind</label></div>
+                        <div class="form-group">
+                            <input type="text" name="texttofind" class="form-control" placeholder="TextToFind">
+                        </div>
+                        <div><label>Credentials</label></div>
+                        <div class="form-group">
+                            <input type="text" name="credentials" class="form-control" placeholder="Credentials">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!-- Modal Update Product-->
+    <form action="/update" method="post">
+        <div class="modal" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Config</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div><label>Application</label></div>
+                        <div class="form-group">
+                            <input type="text" name="application" class="form-control application"
+                                placeholder="Application" required>
+                        </div>
+                        <div><label>Component</label></div>
+                        <div class="form-group">
+                            <input type="text" name="component" class="form-control component" placeholder="Component"
+                                required>
+                        </div>
+                        <div><label>Node</label></div>
+                        <div class="form-group">
+                            <input type="text" name="node" class="form-control node" placeholder="Node" required>
+                        </div>
+                        <div><label>Environment</label></div>
+                        <div class="form-group">
+                            <input type="text" name="environment" class="form-control environment"
+                                placeholder="Environment" required>
+                        </div>
+                        <div><label>URL</label></div>
+                        <div class="form-group">
+                            <input type="text" name="url" class="form-control url" placeholder="URL" required>
+                        </div>
+                        <div><label>TextToFind</label></div>
+                        <div class="form-group">
+                            <input type="text" name="texttofind" class="form-control texttofind"
+                                placeholder="TextToFind">
+                        </div>
+                        <div><label>Credentials</label></div>
+                        <div class="form-group">
+                            <input type="text" name="credentials" class="form-control credentials"
+                                placeholder="Credentials">
+                        </div>
+                    </div>
+                    <input type="hidden" name="id" class="id">
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!-- Modal Delete Product-->
+    <form id="add-row-form" action="/delete" method="post">
+        <div class="modal" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel">Delete Config</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <strong>Are you sure to delete this data?</strong>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" name="id" class="form-control id2" required>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/jquery.filtertable.min.js"></script>
+    <script src='./assets/js/sorttable.js' type='text/javascript' charset='UTF-8'></script>
+    <script>
+        $(document).ready(function () {
+            //showing data to edit modal      
+            $('#mytable').on('click', '.edit', function () {
+                var id = $(this).data('id');
+                var application = $(this).data('application');
+                var component = $(this).data('component');
+                var node = $(this).data('node');
+                var environment = $(this).data('environment');
+                var url = $(this).data('url');
+                var texttofind = $(this).data('texttofind');
+                var credentials = $(this).data('credentials');
+
+                $('#EditModal').modal('show');
+                $('.id').val(id);
+                $('.application').val(application);
+                $('.component').val(component);
+                $('.node').val(node);
+                $('.environment').val(environment);
+                $('.url').val(url);
+                $('.texttofind').val(texttofind);
+                $('.credentials').val(credentials);
+            });
+
+            //showing delete record modal
+            $('#mytable').on('click', '.delete', function () {
+                var id = $(this).data('id');
+                $('#DeleteModal').modal('show');
+                $('.id2').val(id);
+            });
+
+            $('#mytable').filterTable({ minRows: 0 });
+        });
+    </script>
+</body>
+
+</html>
