@@ -21,3 +21,9 @@ notes:
  - port number
  - database connections
  - etc
+ 
+ 
+codes i referred from:
+https://github.com/coreybutler/node-windows
+https://github.com/mattlr20/MSSQL-Express-HBS-Node-CRUD
+http://mfikri.com/en/blog/nodejs-mysql-crud
